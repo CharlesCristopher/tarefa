@@ -1,17 +1,67 @@
-/*Crie uma lista vazia, com o nome listaGenerica.
-Crie uma lista de linguagens de programação chamada linguagensDeProgramacao com os seguintes elementos: 'JavaScript','C','C++', 'Kotlin' e 'Python'.
-Adicione à lista linguagensDeProgramacao os seguintes elementos: 'Java', 'Ruby' e 'GoLang'.
-Crie uma lista com 3 nomes e exiba no console apenas o primeiro elemento.
-Crie uma lista com 3 nomes e exiba no console apenas o segundo elemento.
-Crie uma lista com 3 nomes e exiba no console apenas o último elemento.*/
+let listaDeNumerosSorteados = [] 
+let numeroLimite = 30;
+let numeroSecreto = 5;
+let tentativas = 1;
+function exibirTextoNaTela(tag, texto) {
+    let campo = document.querySelector(tag);
+    campo.innerHTML = texto;
+    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.2});
+}
 
-let listaGenerica = [ ];
+function exibirMensagemInicial() {
+    exibirTextoNaTela('h1', 'Bem vindo ao jogo do número secreto!');
+    exibirTextoNaTela('p', 'Escolha um número entre 1 e 10'); 
+}
 
-let linguagensDeProgramacao = ['JavaScript', 'C', 'C++', 'Kotlin', 'Python'];
+exibirMensagemInicial();
 
-linguagensDeProgramacao.push('Java', 'Ruby', 'GoLang');
-console.log(linguagensDeProgramacao);
+function verificarChute() {
+    let chute = document.querySelector('input').value;
 
-console.log(linguagensDeProgramacao.length);
-console.log(linguagensDeProgramacao[3]);
-console.log(linguagensDeProgramacao.pop());
+    if (chute == numeroSecreto) {
+        exibirTextoNaTela('h1', 'Acertou!');
+        let palavraTentativa = tentativas > 1 ? 'tentativas': 'tentativa';
+        let mensagemTentativas = `Você encontrou o número secreto com ${tentativas} ${palavraTentativa}.`;
+        exibirTextoNaTela('p', mensagemTentativas);
+        document.getElementById('reiniciar').removeAttribute
+        ('disabled');
+    } else { 
+        if (chute > numeroSecreto) {
+         exibirTextoNaTela('p', 'O número secreto é menor.');
+        } else {
+         exibirTextoNaTela('p', 'O número secreto é maior.');
+        }
+        tentativas++;
+        limparCampo();
+    }
+
+}
+
+function gerarNumeroAleatorio() {
+   let numeroEscolhido = parseInt(Math.random() * numeroLimite + 1);
+   let quantidadeDeElementosNaLista = listaDeNumerosSorteados.length;
+    
+   if (quantidadeDeElementosNaLista == numeroLimite) {
+    listaDeNumerosSorteados = [];
+   }
+
+   if (listaDeNumerosSorteados.includes(numeroEscolhido)) {
+       return gerarNumeroAleatorio()
+   } else {
+    listaDeNumerosSorteados.push(numeroEscolhido);
+    return numeroEscolhido; 
+   }
+}
+
+function limparCampo() {
+       chute = document.querySelector('input');
+       chute.value = '';
+}
+
+function reiniciarJogo() {
+    numeroSecreto = gerarNumeroAleatorio();
+    limparCampo();
+    tentativas = 1; 
+    exibirMensagemInicial();
+    document.getElementById('reiniciar').setAttribute('disabled', true);
+}
