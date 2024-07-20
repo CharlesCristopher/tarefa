@@ -1,67 +1,107 @@
-let listaDeNumerosSorteados = [] 
-let numeroLimite = 350;
-let numeroSecreto = 5;
-let tentativas = 1;
-function exibirTextoNaTela(tag, texto) {
-    let campo = document.querySelector(tag);
-    campo.innerHTML = texto;
-    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.2});
+function soma(num1, num2) {
+    return num1 + num2;
 }
 
-function exibirMensagemInicial() {
-    exibirTextoNaTela('h1', 'Bem vindo ao jogo do número secreto!');
-    exibirTextoNaTela('p', 'Escolha um número entre 1 e 10'); 
+function subtracao(num1, num2) {
+    return num1 - num2;
 }
 
-exibirMensagemInicial();
+function multiplicacao(num1, num2) {
+    return num1 * num2;
+}
 
-function verificarChute() {
-    let chute = document.querySelector('input').value;
-
-    if (chute == numeroSecreto) {
-        exibirTextoNaTela('h1', 'Acertou!');
-        let palavraTentativa = tentativas > 1 ? 'tentativas': 'tentativa';
-        let mensagemTentativas = `Você encontrou o número secreto com ${tentativas} ${palavraTentativa}.`;
-        exibirTextoNaTela('p', mensagemTentativas);
-        document.getElementById('reiniciar').removeAttribute
-        ('disabled');
-    } else { 
-        if (chute > numeroSecreto) {
-         exibirTextoNaTela('p', 'O número secreto é menor.');
-        } else {
-         exibirTextoNaTela('p', 'O número secreto é maior.');
-        }
-        tentativas++;
-        limparCampo();
+function divisao(num1, num2) {
+    if (num2 === 0) {
+        return "Erro, divisão por zero";
     }
-
+    return num1 / num2;
 }
 
-function gerarNumeroAleatorio() {
-   let numeroEscolhido = parseInt(Math.random() * numeroLimite + 1);
-   let quantidadeDeElementosNaLista = listaDeNumerosSorteados.length;
+
+// função principal para interação com o usuário
+
+function calculadora() {
+    let num1 parseFloat(prompt("Digite o primeiro número:"));
+    let num2 parseFloat(prompt("Digite o primeiro número:"));
+
+let operacao = prompt("Escolha a operação que deseja realizar:\n1 - soma\n2 - subtracao\n3 - multiplicacao\n4 - divisao");
+
+switch (operacao) {
+    case '1'
+    alert("Resultado:" + soma(num1, num2));
+    breack;
+
+    case '2'
+    alert("Resultado:" + subtracao(num1, num2));
+    breack;
+
+    case '3'
+    alert("Resultado:" + multiplicacao(num1, num2));
+    breack
+
+    case '4'
+    alert("Resultado:" + divisao(num1, num2));
+    breack
     
-   if (quantidadeDeElementosNaLista == numeroLimite) {
-    listaDeNumerosSorteados = [];
-   }
-
-   if (listaDeNumerosSorteados.includes(numeroEscolhido)) {
-       return gerarNumeroAleatorio()
-   } else {
-    listaDeNumerosSorteados.push(numeroEscolhido);
-    return numeroEscolhido; 
-   }
+    default
+    alert("Opção inválida.");
+    }
 }
 
-function limparCampo() {
-       chute = document.querySelector('input');
-       chute.value = '';
+// Chamando a função principal para iniciar a calculadora
+calculadora();
+
+
+
+
+
+
+
+/*// Funções para operações matemáticas
+function soma(num1, num2) {
+    return num1 + num2;
 }
 
-function reiniciarJogo() {
-    numeroSecreto = gerarNumeroAleatorio();
-    limparCampo();
-    tentativas = 1; 
-    exibirMensagemInicial();
-    document.getElementById('reiniciar').setAttribute('disabled', true);
+function subtracao(num1, num2) {
+    return num1 - num2;
 }
+
+function multiplicacao(num1, num2) {
+    return num1 * num2;
+}
+
+function divisao(num1, num2) {
+    if (num2 === 0) {
+        return "Erro: divisão por zero";
+    }
+    return num1 / num2;
+}
+
+// Função principal para interação com o usuário
+function calculadora() {
+    var num1 = parseFloat(prompt("Digite o primeiro número:"));
+    var num2 = parseFloat(prompt("Digite o segundo número:"));
+
+    var operacao = prompt("Escolha a operação que deseja realizar:\n1 - Soma\n2 - Subtração\n3 - Multiplicação\n4 - Divisão");
+
+    switch (operacao) {
+        case '1':
+            alert("Resultado: " + soma(num1, num2));
+            break;
+        case '2':
+            alert("Resultado: " + subtracao(num1, num2));
+            break;
+        case '3':
+            alert("Resultado: " + multiplicacao(num1, num2));
+            break;
+        case '4':
+            alert("Resultado: " + divisao(num1, num2));
+            break;
+        default:
+            alert("Opção inválida.");
+    }
+}
+
+// Chamando a função principal para iniciar a calculadora
+calculadora();*/
+
